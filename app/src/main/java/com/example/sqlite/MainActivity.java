@@ -1,6 +1,6 @@
 package com.example.sqlite;
 
-import  androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TemanAdapter adapter;
     private ArrayList<Teman> temanArrayList;
-    DBController controler = new DBController(this);
-    String id,nm,tlp;
+    DBController controller = new DBController(this);
+
     private FloatingActionButton fab;
+    String id,nm, tlp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         fab = findViewById(R.id.floatingBtn);
-        BacaData();
+        bacaData();
         adapter = new TemanAdapter(temanArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
@@ -48,18 +49,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public  void BacaData(){
-        ArrayList<HashMap<String,String>> daftarTeman = controler.getAllTeman();
+    public  void  bacaData(){
+        ArrayList<HashMap<String,String >> daftarTeman = controller.getAllTeman();
         temanArrayList = new ArrayList<>();
-        //memindah dari hasil query kedalam teman
-        for(int i=0;i<daftarTeman.size();i++){
+
+        // memindah dari hasil query kedalam teman
+        for(int i=0; i<daftarTeman.size(); i++){
             Teman teman = new Teman();
+
             teman.setId(daftarTeman.get(i).get("id").toString());
             teman.setNama(daftarTeman.get(i).get("nama").toString());
             teman.setTelpon(daftarTeman.get(i).get("telpon").toString());
+
             // Pindahkan dari Teman kedalam ArrayList teman di adapter
             temanArrayList.add(teman);
         }
-
     }
 }

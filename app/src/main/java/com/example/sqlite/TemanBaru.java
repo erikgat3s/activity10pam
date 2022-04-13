@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.HashMap;
 
 public class TemanBaru extends AppCompatActivity {
+
     private TextInputEditText tNama, tTelpon;
     private Button simpanBtn;
     String nm,tlp;
@@ -33,22 +34,24 @@ public class TemanBaru extends AppCompatActivity {
             public void onClick(View view) {
                 if(tNama.getText().toString().isEmpty() || tTelpon.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(), "Data Belum komplit !", Toast.LENGTH_SHORT).show();
-                } else {
+
+                }
+                else{
                     nm = tNama.getText().toString();
                     tlp = tTelpon.getText().toString();
 
-                    HashMap<String, String> qvalues = new HashMap<>();
+                    HashMap<String,String> qvalues = new HashMap<>();
                     qvalues.put("nama", nm);
                     qvalues.put("telpon", tlp);
 
-                    controller.InsertData(qvalues);
+                    controller.insertData(qvalues);
                     callHome();
-
                 }
             }
         });
     }
-    public  void  callHome() {
+
+    public  void  callHome(){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
